@@ -5,8 +5,8 @@ import platform
 
 
 class CLI(cmd.Cmd):
-    prompt = '>> '
-    intro = 'Welcome to WARJORN CLI. Type "help" for available commands.'
+    PROMPT = '>> '
+    INTRO  = 'Welcome to WARJORN CLI. Type "help" for available commands.'
 
     def do_hello(self, line):
         """
