@@ -22,10 +22,22 @@ class CLI(cmd.Cmd):
         """
         return True
 
+    def do_exit(self, line):
+        """
+        - exit
+            Exit the CLI.
+        """
+        return True
+
     def do_network(self, line):
         """
         - network
             Displays General Information on Your Network.
+            
+            - info
+                Displays General Information on Your Network.
+            - flushdns
+                Flushes the DNS Cache on Your System.
         """
 
         net_info = "    Information on your network."
@@ -39,17 +51,22 @@ class CLI(cmd.Cmd):
             print(f"    > Hostname: {hostname}")
             print(f"    > IP Address: {ip_address}")
         elif line == "flushdns":
-            print(net_info)
-            print(f"    > Hostname: {hostname}")
-            print(f"    > IP Address: {ip_address}")
-            print("\n")
+            print(f"""{net_info}
+                Flushing DNS Cache on {system} System.
+                > Hostname: {hostname}
+                > IP Address: {ip_address}
+                """)
             try:
                 if system == "Windows":
                     subprocess.run(["ipconfig", "/flushdns"], check=True)
                 elif system == "Linux":
-                    subprocess.run(
-                        ["sudo", "systemd-resolve", "--flush-caches"],
-                        check=True)
+                    try:
+                        subprocess.run(
+                            ["sudo", "systemd-resolve", "--flush-caches"],
+                            check=True)
+                    except:
+                        print("Linux support limited.")
+                        return
                 else:
                     print(f"Unsupported system type: {system}")
                     return
@@ -60,6 +77,10 @@ class CLI(cmd.Cmd):
                 print(
                     "One or more commands not found. Ensure they are installed and in your system's PATH."
                 )
+        else:
+            print(net_info)
+            print(f"    > Hostname: {hostname}")
+            print(f"    > IP Address: {ip_address}")
 
     def do_version(self, line):
         """
