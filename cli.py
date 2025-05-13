@@ -112,9 +112,9 @@ class CLI(cmd.Cmd):
             Checks for updates to the CLI.
         """
         print("Checking for updates...")
-        url = "https://warjorn.com/version.txt"
+        url = "https://raw.githubusercontent.com/RJ-Rodney/wj-cli/refs/heads/main/version.txt"
         latest_version = check_txt_file(url)
-        if latest_version == version:
+        if latest_version.strip() == version:
             print("You are up to date!")
         elif latest_version is None:
             print("Failed to check for updates.")
