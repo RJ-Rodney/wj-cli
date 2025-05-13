@@ -2,6 +2,20 @@ import cmd
 import socket
 import subprocess
 import platform
+import requests
+
+
+def check_txt_file(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.text
+    except requests.RequestException as e:
+        print(f"Error checking for updates: {e}")
+        return None
+
+
+version = "1.0.0-BETA"
 
 
 class CLI(cmd.Cmd):
@@ -87,9 +101,28 @@ class CLI(cmd.Cmd):
         - version
             Displays the current version of the CLI.
         """
-        version = "1.0.0-BETA"
         print(f"You are running version: {version}")
+        print("    > Type 'update' to check for updates.")
+        print("    > Type 'help' for more information.")
+        print("    > Type 'quit' or 'exit' to quit the CLI.")
+
+    def do_update(self, line):
+        """
+        - update
+            Checks for updates to the CLI.
+        """
+        print("Checking for updates...")
+        url = "https://n9w4nrt0oq.ufs.sh/f/wXDYKf6vcBXFlinWYJIcMT8v6VwPQ2K3mOa7tqRUGWcdbDCk"
+        latest_version = check_txt_file(url)
+        if latest_version == version:
+            print("You are up to date!")
+        else:
+            print("There is a new update available!")
+            print(f"    > Current Version: {version}")
+            print(f"    > Latest Version: {latest_version}")
 
 
 if __name__ == '__main__':
     CLI().cmdloop()
+
+    print("Goodbye!")
