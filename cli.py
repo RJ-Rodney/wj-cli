@@ -112,10 +112,12 @@ class CLI(cmd.Cmd):
             Checks for updates to the CLI.
         """
         print("Checking for updates...")
-        url = "https://n9w4nrt0oq.ufs.sh/f/wXDYKf6vcBXFlinWYJIcMT8v6VwPQ2K3mOa7tqRUGWcdbDCk"
+        url = "https://warjorn.com/version.txt"
         latest_version = check_txt_file(url)
         if latest_version == version:
             print("You are up to date!")
+        elif latest_version is None:
+            print("Failed to check for updates.")
         else:
             print("There is a new update available!")
             print(f"    > Current Version: {version}")
