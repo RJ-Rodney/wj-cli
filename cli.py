@@ -43,20 +43,24 @@ class CLI(cmd.Cmd):
             print(f"    > Hostname: {hostname}")
             print(f"    > IP Address: {ip_address}")
             print("\n")
-            try: 
+            try:
                 if system == "Windows":
                     subprocess.run(["ipconfig", "/flushdns"], check=True)
                 elif system == "Linux":
-                    subprocess.run(["sudo", "systemd-resolve", "--flush-caches"], check=True)
+                    subprocess.run(
+                        ["sudo", "systemd-resolve", "--flush-caches"],
+                        check=True)
                 else:
                     print(f"Unsupported system type: {system}")
                     return
                 print("DNS Cache Flushed Successfully.")
-            except subprocess.CalledProcessorError as e:
+            except subprocess.CalledProcessError as e:
                 print(f"Error Flushing DNS: {e}")
             except FileNotFoundError:
-                print("One or more commands not found. Ensure they are installed and in your system's PATH.")
-            
+                print(
+                    "One or more commands not found. Ensure they are installed and in your system's PATH."
+                )
+
 
 if __name__ == '__main__':
     CLI().cmdloop()
