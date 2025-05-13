@@ -61,6 +61,10 @@ class CLI(cmd.Cmd):
                     "One or more commands not found. Ensure they are installed and in your system's PATH."
                 )
 
+    def do_version(self):
+        version = "1.0.0-BETA"
+        print(f"You are running version: {version}")
+
 
 if __name__ == '__main__':
     CLI().cmdloop()
