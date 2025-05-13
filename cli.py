@@ -5,8 +5,8 @@ import platform
 
 
 class CLI(cmd.Cmd):
-    PROMPT = '>> '
-    INTRO  = 'Welcome to WARJORN CLI. Type "help" for available commands.'
+    prompt = '>> '
+    intro = 'Welcome to WARJORN CLI. Type "help" for available commands.'
 
     def do_hello(self, line):
         """
@@ -61,7 +61,11 @@ class CLI(cmd.Cmd):
                     "One or more commands not found. Ensure they are installed and in your system's PATH."
                 )
 
-    def do_version(self):
+    def do_version(self, line):
+        """
+        - version
+            Displays the current version of the CLI.
+        """
         version = "1.0.0-BETA"
         print(f"You are running version: {version}")
 
