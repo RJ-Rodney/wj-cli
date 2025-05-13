@@ -1,5 +1,7 @@
 import cmd
 import socket
+import subprocess
+import platform
 
 
 class CLI(cmd.Cmd):
@@ -30,12 +32,31 @@ class CLI(cmd.Cmd):
 
         hostname = socket.gethostname()
         ip_address = socket.gethostbyname(hostname)
+        system = platform.system()
 
         if line == "info":
             print(net_info)
             print(f"    > Hostname: {hostname}")
             print(f"    > IP Address: {ip_address}")
-
+        elif line == "flushdns":
+            print(net_info)
+            print(f"    > Hostname: {hostname}")
+            print(f"    > IP Address: {ip_address}")
+            print("\n")
+            try: 
+                if system == "Windows":
+                    subprocess.run(["ipconfig", "/flushdns"], check=True)
+                elif system == "Linux":
+                    subprocess.run(["sudo", "systemd-resolve", "--flush-caches"], check=True)
+                else:
+                    print(f"Unsupported system type: {system}")
+                    return
+                print("DNS Cache Flushed Successfully.")
+            except subprocess.CalledProcessorError as e:
+                print(f"Error Flushing DNS: {e}")
+            except FileNotFoundError:
+                print("One or more commands not found. Ensure they are installed and in your system's PATH.")
+            
 
 if __name__ == '__main__':
     CLI().cmdloop()
