@@ -7,19 +7,19 @@ class CLI(cmd.Cmd):
     intro = 'Welcome to WARJORN CLI. Type "help" for available commands.'
 
     def do_hello(self, line):
-        """
+        """hello
         Print 'Hello, World!'.
         """
         print("Hello, World!")
 
     def do_quit(self, line):
-        """
+        """quit
         Quit the CLI.
         """
         return True
 
     def do_network(self, line):
-        """
+        """network
         Displays General Information on Your Network.
         """
         print("    Information on your network.")
