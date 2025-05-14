@@ -92,9 +92,9 @@ class CLI(cmd.Cmd):
                     "One or more commands not found. Ensure they are installed and in your system's PATH."
                 )
         else:
-            print(net_info)
-            print(f"    > Hostname: {hostname}")
-            print(f"    > IP Address: {ip_address}")
+            print(f"""{net_info}
+            > Hostname: {hostname}
+            > IP Address: {ip_address}""")
 
     def do_version(self, line):
         """
