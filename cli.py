@@ -61,9 +61,9 @@ class CLI(cmd.Cmd):
         system = platform.system()
 
         if line == "info":
-            print(net_info)
-            print(f"    > Hostname: {hostname}")
-            print(f"    > IP Address: {ip_address}")
+            print(f"""{net_info}
+            > Hostname: {hostname}
+            > IP Address: {ip_address}""")
         elif line == "flushdns":
             print(f"""{net_info}
                 Flushing DNS Cache on {system} System.
